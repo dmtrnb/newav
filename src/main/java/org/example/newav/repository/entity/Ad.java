@@ -3,7 +3,6 @@ package org.example.newav.repository.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,11 +21,14 @@ public class Ad {
     private long id;
 
     private String name;
-    @Column(name = "main_photo")
-    private String mainPhoto;
+
     private double price;
     private String description;
-//    private List<String> otherPhotos;
+
+    @ElementCollection
+    @CollectionTable(name = "photos", joinColumns=@JoinColumn(name = "ad_id"))
+    private List<String> photos;
+
     @Column(name = "creation_date")
     private Timestamp dateCreation;
 }

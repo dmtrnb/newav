@@ -12,7 +12,6 @@ public class AdHelper {
         if (ad == null)
             return null;
 
-        System.out.println(ad.getDateCreation());
         AdDto adDto = AdMapper.fromEntityToDto(ad);
 
         if (fields != null) {
@@ -20,9 +19,9 @@ public class AdHelper {
             if (!fields.contains("description")) {
                 adDto.setDescription(null);
             }
-//            if (!fields.contains("other_photos")) {
-//                adDto.setOtherPhotos(null);
-//            }
+            if (!fields.contains("all_photos")) {
+                adDto.setOtherPhotos(null);
+            }
         }
         return adDto;
     }

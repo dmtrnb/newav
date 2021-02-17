@@ -1,6 +1,6 @@
 package org.example.newav.repository.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,8 +16,8 @@ public class AdDto implements Serializable {
     private String name;
     private String mainPhoto;
     private double price;
-    @JsonIgnore
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
-//    @JsonIgnore
-//    private List<String> otherPhotos;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<String> otherPhotos;
 }
