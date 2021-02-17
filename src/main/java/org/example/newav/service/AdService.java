@@ -20,8 +20,7 @@ public class AdService {
         this.adRepository = adRepository;
     }
 
-    public AdDto findById(long id, List<String> fields) {
-        Ad ad = adRepository.findById(id).orElse(null);
+    public AdDto returnDto(Ad ad, List<String> fields) {
         return AdHelper.getDtoFromAd(ad, fields);
     }
 }

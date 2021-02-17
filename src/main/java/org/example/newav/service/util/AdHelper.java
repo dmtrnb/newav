@@ -9,6 +9,10 @@ import java.util.List;
 public class AdHelper {
 
     public static AdDto getDtoFromAd(Ad ad, List<String> fields) {
+        if (ad == null)
+            return null;
+
+        System.out.println(ad.getDateCreation());
         AdDto adDto = AdMapper.fromEntityToDto(ad);
 
         if (fields != null) {

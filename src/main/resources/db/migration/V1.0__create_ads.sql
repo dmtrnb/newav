@@ -4,4 +4,5 @@ CREATE TABLE IF NOT EXISTS ad (
     , main_photo VARCHAR DEFAULT NULL
     , price DOUBLE NOT NULL
     , description VARCHAR DEFAULT NULL
+    , creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -23,10 +23,11 @@ public class AdController {
         this.adService = service;
     }
 
-    @GetMapping("/findById")
-    public ResponseEntity<AdDto> findById(@RequestParam long id,
+    @GetMapping({"/findById", "/findById/{ad}"})
+    public ResponseEntity<AdDto> findById(@RequestParam(required = false) Ad id,
+                                          @PathVariable(required = false) Ad ad,
                                           @RequestParam(required = false) List<String> fields) {
-        return new BaseResponse<>(adService.findById(id, fields)).getResponseEntity();
+        return new BaseResponse<>(adService.returnDto(id == null ? ad : id, fields)).getResponseEntity();
     }
 
 }

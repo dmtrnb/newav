@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.List;
 
 @Getter
@@ -16,10 +15,9 @@ public class AdDto implements Serializable {
 
     private String name;
     private String mainPhoto;
-//    private URI mainPhoto;
     private double price;
     @JsonIgnore
     private String description;
 //    @JsonIgnore
-//    private List<URI> otherPhotos;
+//    private List<String> otherPhotos;
 }
