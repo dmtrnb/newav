@@ -1,28 +1,77 @@
 package org.example.newav.service.util;
 
-import org.example.newav.repository.dto.AdDto;
+import org.example.newav.repository.dto.AdInDto;
+import org.example.newav.repository.dto.AdOutDto;
 import org.example.newav.repository.entity.Ad;
 import org.example.newav.repository.mapper.AdMapper;
+import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdHelper {
 
-    public static AdDto getDtoFromAd(Ad ad, List<String> fields) {
+    private final static int MAX_PHOTO = 3;
+    private final static int MAX_TITLE_LEN = 200;
+    private final static int MAX_DESC_LEN = 1000;
+    private final static List<String> sorting;
+    private final static List<String> columns;
+    private final static String COLUMN_FOR_SORT = "creationDate";
+
+    static {
+        sorting = new ArrayList<>();
+        sorting.add("ASC");
+        sorting.add("DESC");
+        columns = new ArrayList<>();
+        columns.add("creation_date");
+        columns.add("price");
+    }
+
+    public static AdOutDto getDtoFromAd(Ad ad, List<String> fields) {
         if (ad == null)
             return null;
 
-        AdDto adDto = AdMapper.fromEntityToDto(ad);
+        AdOutDto adOutDto = AdMapper.fromEntityToDto(ad);
 
         if (fields != null) {
-            fields.forEach(String::toLowerCase);
+            fields = fields.stream().map((s) -> s = s.toLowerCase()).collect(Collectors.toList());
             if (!fields.contains("description")) {
-                adDto.setDescription(null);
+                adOutDto.setDescription(null);
             }
             if (!fields.contains("all_photos")) {
-                adDto.setOtherPhotos(null);
+                adOutDto.setOtherPhotos(null);
             }
         }
-        return adDto;
+        return adOutDto;
+    }
+
+    public static Ad getAdFromDto(AdInDto adInDto) {
+        if ((adInDto.getPhotos() != null && adInDto.getPhotos().size() > MAX_PHOTO) ||
+                adInDto.getTitle() == null || adInDto.getTitle().length() > MAX_TITLE_LEN ||
+                (adInDto.getDescription() != null && adInDto.getDescription().length() > MAX_DESC_LEN))
+            return null;
+        return AdMapper.fromDtoToEntity(adInDto);
+    }
+
+    public static Sort getSort(String sort, String column) {
+        sort = sort.toUpperCase();
+        column = column.toLowerCase();
+
+        boolean isAsc = false;
+        if (sorting.contains(sort.toUpperCase())) {
+            isAsc = !sort.toUpperCase().equals(sorting.get(1));
+        }
+        if (!columns.contains(column) || column.equals(columns.get(0))) {
+            column = COLUMN_FOR_SORT;
+        }
+        return (isAsc ? Sort.by(column).ascending() : Sort.by(column).descending());
+    }
+
+    public static AdOutDto getDtoForPages(Ad ad) {
+        AdOutDto adOutDto = AdMapper.fromEntityToDto(ad);
+        adOutDto.setDescription(null);
+        adOutDto.setOtherPhotos(null);
+        return adOutDto;
     }
 }

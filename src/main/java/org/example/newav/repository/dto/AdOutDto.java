@@ -11,9 +11,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdDto implements Serializable {
+public class AdOutDto implements Serializable {
 
-    private String name;
+    private String title;
     private String mainPhoto;
     private double price;
     @JsonInclude(JsonInclude.Include.NON_NULL)

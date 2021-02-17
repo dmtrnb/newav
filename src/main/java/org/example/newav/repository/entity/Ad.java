@@ -20,7 +20,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String title;
 
     private double price;
     private String description;
@@ -30,5 +30,5 @@ public class Ad {
     private List<String> photos;
 
     @Column(name = "creation_date")
-    private Timestamp dateCreation;
+    private Timestamp creationDate;
 }
