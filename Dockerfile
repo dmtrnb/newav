@@ -1,6 +1,14 @@
-FROM		ft-alpine:java
+FROM		alpine
 
 WORKDIR		/opt/
+
+RUN		apk update && apk add \
+			openssh-server \
+			nano \
+			git \
+			openjdk8 \
+			maven \
+		&& rm -rf /var/cache/apk/*
 
 RUN		git clone https://github.com/nhamill21/newav.git
 
