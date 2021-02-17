@@ -6,6 +6,9 @@ import org.example.newav.repository.entity.Ad;
 import org.example.newav.repository.mapper.AdMapper;
 import org.springframework.data.domain.Sort;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +57,15 @@ public class AdHelper {
                 adInDto.getTitle() == null || adInDto.getTitle().length() > MAX_TITLE_LEN ||
                 (adInDto.getDescription() != null && adInDto.getDescription().length() > MAX_DESC_LEN))
             return null;
+        try {
+            URL url;
+            for (String link: adInDto.getPhotos()) {
+                url = new URL(link);
+                url.toURI();
+            }
+        } catch (MalformedURLException | URISyntaxException e) {
+            return null;
+        }
         return AdMapper.fromDtoToEntity(adInDto);
     }
 
