@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class AdHelper {
 
-    private final static int MAX_PHOTO = 3;
-    private final static int MAX_TITLE_LEN = 200;
-    private final static int MAX_DESC_LEN = 1000;
-    private final static List<String> sorting;
-    private final static List<String> columns;
-    private final static String COLUMN_FOR_SORT = "creationDate";
+    private static final int MAX_PHOTO = 3;
+    private static final int MAX_TITLE_LEN = 200;
+    private static final int MAX_DESC_LEN = 1000;
+    private static final List<String> sorting;
+    private static final List<String> columns;
+    private static final String COLUMN_FOR_SORT = "creationDate";
 
     static {
         sorting = new ArrayList<>();
@@ -28,6 +28,9 @@ public class AdHelper {
         columns.add("price");
     }
 
+    private AdHelper() {
+    }
+
     public static AdOutDto getDtoFromAd(Ad ad, List<String> fields) {
         if (ad == null)
             return null;
@@ -35,7 +38,7 @@ public class AdHelper {
         AdOutDto adOutDto = AdMapper.fromEntityToDto(ad);
 
         if (fields != null) {
-            fields = fields.stream().map((s) -> s = s.toLowerCase()).collect(Collectors.toList());
+            fields = fields.stream().map(s -> s = s.toLowerCase()).collect(Collectors.toList());
             if (!fields.contains("description")) {
                 adOutDto.setDescription(null);
             }
@@ -60,7 +63,7 @@ public class AdHelper {
 
         boolean isAsc = false;
         if (sorting.contains(sort.toUpperCase())) {
-            isAsc = !sort.toUpperCase().equals(sorting.get(1));
+            isAsc = !sort.equalsIgnoreCase(sorting.get(1));
         }
         if (!columns.contains(column) || column.equals(columns.get(0))) {
             column = COLUMN_FOR_SORT;

@@ -8,6 +8,9 @@ import java.util.List;
 
 public class AdMapper {
 
+    private AdMapper() {
+    }
+
     public static AdOutDto fromEntityToDto(Ad ad) {
         List<String> photos = ad.getPhotos();
         int size = photos != null ? photos.size() : 0;
