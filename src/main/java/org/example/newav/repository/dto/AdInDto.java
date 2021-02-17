@@ -23,6 +23,5 @@ public class AdInDto implements Serializable {
     @ApiModelProperty(example = "2.28", position = 2)
     private double price;
     @ApiModelProperty(example = "description", position = 3)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
 }

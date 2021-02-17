@@ -61,8 +61,8 @@ public class AdController {
             response = AdOutDto.class)
     @GetMapping("/findAll")
     public ResponseEntity<Page<AdOutDto>> findAll(
-            @ApiParam(value = "Страница", defaultValue = "0") @RequestParam(defaultValue = "0") int page,
-            @ApiParam(value = "Элементов на страницу", defaultValue = "10") @RequestParam(defaultValue = "10") int size,
+            @ApiParam(value = "Страница", defaultValue = "0") @RequestParam(defaultValue = "0") Integer page,
+            @ApiParam(value = "Элементов на страницу", defaultValue = "10") @RequestParam(defaultValue = "10") Integer size,
             @ApiParam(value = "По убыванию или возрастанию", defaultValue = "DESC") @RequestParam(defaultValue = "DESC") String sort,
             @ApiParam(value = "Сортировка по столбцу", defaultValue = "creation_date") @RequestParam(defaultValue = "creation_date") String column) {
         return new BaseResponse<>(adService.findAll(page, size, sort, column)).getResponseEntity();

@@ -64,14 +64,16 @@ public class AdHelper {
                 adInDto.getTitle() == null || adInDto.getTitle().length() > MAX_TITLE_LEN ||
                 (adInDto.getDescription() != null && adInDto.getDescription().length() > MAX_DESC_LEN))
             return null;
-        try {
-            URL url;
-            for (String link: adInDto.getPhotos()) {
-                url = new URL(link);
-                url.toURI();
+        if (adInDto.getPhotos() != null) {
+            try {
+                URL url;
+                for (String link: adInDto.getPhotos()) {
+                    url = new URL(link);
+                    url.toURI();
+                }
+            } catch (MalformedURLException | URISyntaxException e) {
+                return null;
             }
-        } catch (MalformedURLException | URISyntaxException e) {
-            return null;
         }
         return AdMapper.fromDtoToEntity(adInDto);
     }
