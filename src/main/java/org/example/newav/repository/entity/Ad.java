@@ -25,7 +25,7 @@ public class Ad {
     private double price;
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "photos", joinColumns=@JoinColumn(name = "ad_id"))
     private List<String> photos;
 

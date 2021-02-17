@@ -21,6 +21,8 @@ public class AdHelper {
     private static final List<String> sorting;
     private static final List<String> columns;
     private static final String COLUMN_FOR_SORT = "creationDate";
+    private static final String DESCRIPTION = "description";
+    private static final String PHOTOS = "photos";
 
     static {
         sorting = new ArrayList<>();
@@ -40,15 +42,20 @@ public class AdHelper {
 
         AdOutDto adOutDto = AdMapper.fromEntityToDto(ad);
 
+        System.out.println(adOutDto.getDescription() + adOutDto.getOtherPhotos());
         if (fields != null) {
             fields = fields.stream().map(s -> s = s.toLowerCase()).collect(Collectors.toList());
-            if (!fields.contains("description")) {
+            if (!fields.contains(DESCRIPTION)) {
                 adOutDto.setDescription(null);
             }
-            if (!fields.contains("all_photos")) {
+            if (!fields.contains(PHOTOS)) {
                 adOutDto.setOtherPhotos(null);
             }
+        } else {
+            adOutDto.setDescription(null);
+            adOutDto.setOtherPhotos(null);
         }
+        System.out.println(adOutDto.getDescription() + adOutDto.getOtherPhotos());
         return adOutDto;
     }
 

@@ -18,3 +18,10 @@ spring:
     database-platform: "org.hibernate.dialect.H2Dialect"
   flyway:
     baseline-on-migrate: true
+app:
+  title: "New Avito"
+  desc: "Описание доступных эндпоинтов"
+  version: "0.0.1"
+  author: "Dmitry Bulygin"
+  site: "https://t.me/nhamill"
+  email: "tsoizhiv@ya.ru"

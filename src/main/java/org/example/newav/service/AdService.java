@@ -23,8 +23,8 @@ public class AdService {
         this.adRepository = adRepository;
     }
 
-    public AdOutDto returnDto(Ad ad, List<String> fields) {
-        return AdHelper.getDtoFromAd(ad, fields);
+    public AdOutDto returnDto(Long id, List<String> fields) {
+        return AdHelper.getDtoFromAd(adRepository.findById(id).orElse(null), fields);
     }
 
     public Long add(AdInDto adInDto) {
