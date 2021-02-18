@@ -5,6 +5,7 @@ import org.example.newav.repository.dto.AdOutDto;
 import org.example.newav.repository.entity.Ad;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AdMapper {
 
@@ -13,14 +14,16 @@ public class AdMapper {
 
     public static AdOutDto fromEntityToDto(Ad ad) {
         List<String> photos = ad.getPhotos();
-        int size = photos != null ? photos.size() : 0;
+        Optional<String> mainPhoto = photos != null ? Optional.ofNullable(photos.get(0)) : Optional.empty();
+        Optional<List<String>> otherPhotos = photos != null && photos.size() > 1 ?
+                Optional.of(photos.subList(1, photos.size())) : Optional.empty();
 
         return AdOutDto.builder()
                 .title(ad.getTitle())
-                .mainPhoto(size > 0 ? photos.get(0) : null)
+                .mainPhoto(mainPhoto.orElse(null))
                 .price(ad.getPrice())
                 .description(ad.getDescription())
-                .otherPhotos(size > 1 ? photos.subList(1, size) : null)
+                .otherPhotos(otherPhotos.orElse(null))
                 .build();
     }
 

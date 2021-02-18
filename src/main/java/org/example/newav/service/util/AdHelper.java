@@ -42,7 +42,6 @@ public class AdHelper {
 
         AdOutDto adOutDto = AdMapper.fromEntityToDto(ad);
 
-        System.out.println(adOutDto.getDescription() + adOutDto.getOtherPhotos());
         if (fields != null) {
             fields = fields.stream().map(s -> s = s.toLowerCase()).collect(Collectors.toList());
             if (!fields.contains(DESCRIPTION)) {
@@ -55,7 +54,6 @@ public class AdHelper {
             adOutDto.setDescription(null);
             adOutDto.setOtherPhotos(null);
         }
-        System.out.println(adOutDto.getDescription() + adOutDto.getOtherPhotos());
         return adOutDto;
     }
 
