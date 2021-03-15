@@ -14,7 +14,7 @@ public class AdMapper {
 
     public static AdOutDto fromEntityToDto(Ad ad) {
         List<String> photos = ad.getPhotos();
-        Optional<String> mainPhoto = photos != null ? Optional.ofNullable(photos.get(0)) : Optional.empty();
+        Optional<String> mainPhoto = photos != null && photos.size() != 0 ? Optional.ofNullable(photos.get(0)) : Optional.empty();
         Optional<List<String>> otherPhotos = photos != null && photos.size() > 1 ?
                 Optional.of(photos.subList(1, photos.size())) : Optional.empty();
 
